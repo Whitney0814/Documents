@@ -1,0 +1,459 @@
+﻿;.model small
+;.code
+;main proc 
+;    
+;    start:
+;    mov ah, 1
+;    int 21h
+;    
+;    cmp al, 1Ah
+;    je exit
+;    
+;    cmp al, 'A'
+;    jb print
+;    
+;    cmp al, 'Z'
+;    ja print
+;    
+;    add al, 20h
+;    
+;    print:
+;    mov ah, 2
+;    mov dl, al
+;    int 21h
+;    
+;    jmp start
+;    
+;    exit:
+;    mov ah, 4ch
+;    int 21h
+;    
+;    main endp
+;end main
+
+;.model small
+;.data
+;start db 'input data ->$'
+;
+;.code
+;main proc
+;    mov ax, @data
+;    mov ds, ax
+;    
+;    input:
+;    mov ah, 9
+;    lea dx, start
+;    int 21h
+;     
+;    mov ah, 1
+;    int 21h
+;    cmp al, '0'
+;    jb exit
+;    cmp al, '9'
+;    ja exit
+;    mov bl, al
+;    
+;    cmp bl, 1Ah
+;    je exit
+;        
+;    mov ah, 1
+;    int 21h
+;    cmp al, '0'
+;    jb exit
+;    cmp al, '9'
+;    ja exit
+;    mov cl, al    
+;    
+;    cmp cl, 1Ah
+;    je exit
+;    
+;    mov ah, 2
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    sub bl, cl
+;    jns output     ;부호가 없으면 output으로
+;    neg bl         ;부호가 있다면 bl을 절댓값으로 변환
+;    
+;    output: 
+;    mov ah, 2
+;    mov dl, bl
+;    add dl, 30h
+;    int 21h
+;    
+;    mov ah, 2
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    jmp input
+;    
+;    exit:
+;    mov ah, 4ch
+;    int 21h
+;    
+;    main endp
+;end main
+
+;.model small
+;.data
+;start db 'input data ->$'
+;
+;.code
+;main proc
+;    mov ax, @data
+;    mov ds, ax
+;    
+;    input:
+;    mov ah, 9
+;    lea dx, start
+;    int 21h
+;     
+;    mov ah, 1
+;    int 21h
+;    cmp al, '0'
+;    jb exit
+;    cmp al, '9'
+;    ja exit
+;    mov bl, al
+;    
+;    cmp bl, 1Ah
+;    je exit
+;        
+;    mov ah, 1
+;    int 21h
+;    cmp al, '0'
+;    jb exit
+;    cmp al, '9'
+;    ja exit
+;    mov cl, al    
+;    
+;    cmp cl, 1Ah
+;    je exit
+;    
+;    cmp bl, cl
+;    ja print
+;    
+;    mov bh, bl
+;    mov bl, cl
+;    mov cl, bh
+;    
+;    print: 
+;    mov ah, 2
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    sub bl, cl
+;    mov dl, bl
+;    add dl, 30h
+;    int 21h
+;    
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    jmp input
+;    
+;    exit:
+;    mov ah, 4ch
+;    int 21h
+;    
+;    main endp
+;end main
+
+;.model small
+;.data
+;up db 'your number is above.$'
+;down db 'your number is bellow.$'
+;con db 'congraturation.$'
+;try db 'sorry. please try again.$'
+;bye db 'thank you for playing.$'
+;
+;
+;.code
+;
+;main proc
+;    result equ '6'
+;    
+;    start:
+;    mov ax, @data
+;    mov ds, ax
+;    mov cx, 5
+;        
+;    
+;    main endp
+;end main
+
+;.model small
+;.data
+;HOLSU db '->ODD NUMBER$'
+;JAKSU db '->EVEN NUMBER$'
+;
+;.code
+;main proc
+;    mov ax, @data
+;    mov ds, ax
+;    
+;    START:
+;    mov ah, 1
+;    int 21h
+;    
+;    cmp al, '0'
+;    jb exit
+;    
+;    cmp al, '9'    
+;    ja exit
+;    
+;    mov bl, 2   ;div를 쓰기위해서는 bl레지스터에 값을
+;    div bl      ;넣어 al레지스터에 있는 값을 나누어야
+;    cmp ah, 0   ;한다. 값은 ax레지스터에 들어가며 
+;    jne HOL     ;al에는 몫이 ah에는 나머지가 들어간다.
+;    
+;    mov ah, 9
+;    lea dx, JAKSU
+;    int 21h
+;    
+;    mov ah, 2
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    jmp START
+;    
+;    HOL:
+;    mov ah, 9
+;    lea dx, HOLSU
+;    int 21h
+;    
+;    mov ah, 2
+;    mov dl, 0dh
+;    int 21h
+;    mov dl, 0ah
+;    int 21h
+;    
+;    jmp START
+;    
+;    exit:
+;    mov ah, 4ch
+;    int 21h
+;    
+;    main endp
+;end main
+
+;.model small
+;.data
+;Input_string db 'Input decimal number..$'
+;string db '->$'
+;
+;.code
+;main proc
+;    ;10진수 2자리를 입력받아 2진수로 변환하여 출력하는 프로그램
+;    ;어셈블리에서는 두자리 숫자를 받을 때 각자 입력받은 
+;    ;다음 10의 자리 숫자에 10을 곱하고 1의 자리 숫자와 
+;    ;더해서 두자리 숫자를 만든다.
+;    mov ax, @data
+;    mov ds, ax
+;    
+;    mov ah, 9
+;    lea dx, Input_string
+;    int 21h
+;    
+;    mov ah, 1
+;    int 21h
+;    sub al, 30h     ;아스키코드값으로 33이기 때문에 계산할
+;                    ;때는 빼줘야한다
+;    mov bl, 10
+;    mul bl          ; = al * bl(10)
+;    mov bl, al
+;    
+;    mov ah, 1
+;    int 21h  
+;    sub al, 30h
+;    add bl, al
+;    
+;    mov ah, 9
+;    lea dx, string
+;    int 21h
+;    
+;    mov cx, 8         ;반복할 횟수 
+;    
+;    repeat:
+;    shl bl, 1         ;컴퓨터 상에서 2진수로 저장된 값을
+;    lahf              ;왼쪽으로 shift시켜서 CF에 저장한 다음
+;                      ;lahf로 CF의 값을 ah레지스터로 받아온다.
+;    and ah, 00000001b ;즉, 1과 and연산 시켜서 하나하나씩 
+;    mov dl, ah        ;값을 뽑아낸다.
+;    mov ah, 2 
+;    add dl, 30h
+;    int 21h
+;    
+;    loop repeat       ;cx의 값만큼 반복한다.
+;    
+;    mov ah, 4ch
+;    int 21h
+;    main endp
+;end main
+
+
+;.model small
+;.data       
+;Input db 'Input->$'
+;
+;.code
+;main proc
+;    mov ax, @data
+;    mov ds, ax
+;    
+;    mov ah, 9
+;    lea dx, Input
+;    int 21h 
+;    
+;    mov ah, 1
+;    int 21h
+;    mov dl, al
+;    mov cx, 1000
+;    
+;    next_print:
+;    mov ah, 2
+;    int 21h
+;    
+;    loop next_print
+;    
+;    mov ah, 4ch
+;    int 21h
+;    
+;    main endp
+;end main
+
+;문자열 비교 프로그램
+
+;.model small
+;.data
+;string1 db "Sosuyong$"
+;string2 db "Sosuyong$"
+;.code
+;main proc
+;    ;같은 문자인지 비교하는 예제
+;    mov ax, @data
+;    mov ds, ax
+;    mov es, ax
+;    
+;    CLD             ;clear derection flag
+;    mov cx, 8
+;    lea si, string1
+;    lea di, string2
+;    repe cmpsb      ;같을 때 까지 비교하면서 반복
+;    jne N
+;    mov dl, 'Y'
+;    jmp DONE
+;    N:
+;    mov dl, 'N'
+;    DONE:
+;    mov ah, 2
+;    int 21h
+;    
+;    mov ah, 4ch
+;    int 21h
+;    main endp
+;end main
+
+;.model small
+;.data
+;source db "Hong kil Dong$"
+;destination db "Park Kil Dong$"
+;.code
+;main proc 
+;    ;문자 옳기는 예제
+;    mov ax, @data
+;    mov ds, ax
+;    mov es, ax
+;    
+;    mov ah, 9
+;    lea dx, destination
+;    int 21h
+;    
+;    mov ah, 2
+;    mov dl, 0ah
+;    int 21h
+;    mov dl, 0dh
+;    int 21h
+;    
+;    CLD                    ;movsb가 왼쪽에서 오른쪽으로 처리하도록 DF를 0클리어
+;    
+;    mov cx, 4              ;전송할 문자 개수
+;    lea si, source
+;    lea di, destination
+;    rep movsb              ;cx에 저장된 횟수만큼 반복
+;    lea dx, destination    ;바뀐 실행 결과 display
+;    mov ah, 9
+;    int 21h
+;    
+;    mov ah, 4ch
+;    int 21h
+;    main endp
+;end main   
+
+;.model small
+;.data
+;msg1 db "Sosuyong -> $"
+;
+;.code
+;main proc
+;    ;문자 검색 예제
+;    mov ax, @data
+;    mov ds, ax
+;    mov es, ax
+;    
+;    CLD
+;    mov cx, 8
+;    lea di, msg1
+;    mov ah, 9
+;    int 21h
+;    
+;    mov al, 'y'     ;검색하고자 하는 문자를 al로 전송
+;    repne scasb     ;검색하고자 하는 문자를 찾을때까지 반복
+;    dec di          ;실행후 멈추면 다음 주소를 가리키기 때문에 -1을 해준다
+;    mov dl,[di]     ;상대참조로 주소에 들어있는 값을 가져옴
+;    mov ah, 2       ;주소값을 레지스터에 넣을때에는 대괄호를 써줌
+;    int 21h
+;          
+;    mov ah, 4ch
+;    int 21h
+;    main endp
+;end main
+
+;.model small
+;.data
+;var db "ASSEMBLY LANGUAGE$"
+;.code
+;main proc
+;    ;문자 중간에 문자 대입
+;    mov ax, @data
+;    mov ds, ax
+;    mov es, ax
+;    
+;    CLD
+;    lea di, var
+;    mov cx, 17
+;    mov al, 20h     ;아스키코드로 스페이스
+;    repne scasb     ;가 나올때 까지 반복
+;    
+;    dec di          ;실행후 멈추면 다음 주소를 가리키기 때문에 -1을 해준다
+;    mov ES:BYTE PTR [di],'&'    ;주소가 가리키는 값에 &를 넣음 
+;    ;ES:DI 바이트 포인터(원래는 생략)
+;    lea dx, var
+;    mov ah, 9
+;    int 21h
+;    
+;    mov ah, 4ch
+;    int 21h    
+;    
+;    main endp
+;end main
