@@ -24,39 +24,33 @@
             let ID = document.getElementById("ID");
             let word1 = Array('?', '!', '@', '_');
             let word2 = Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
-            let count1 = 0;
-            let count2 = 0;
+            let count = 0;
+
             for(let i=0;i<word1.length;i++){
                 if(password.value.includes(word1[i])){ 
-                    count1 += 1;
+                    count += 1;
                 }
             }
 
-            if(count1 === 1){
-                alert("비밀번호 설정 완료");
-            }else if(count1 === 0){
-                alert(`${password.value}` + "에 특수문자(?, !, @, _)가 포함되어야 합니다.");
-                count1 = 0;
-            }
-
-            if(!isNaN(Number(SSN1.value)) && !isNaN(Number(SSN2.value))){
-                alert("주민번호 설정 완료");
-                count2 = 1;
-            }else{
-                alert(`${SSN1.value}-${SSN2.value}` + "에는 숫자만 써야합니다.");
-                count2 = 0;
-            }
-
-            if(count1 && count2){
-                alert("회원가입 완료!");
-                alert("이름 : " + Name.value);
-                alert("아이디 : " + ID.value);
-                alert("비밀번호 : " + password.value);
-                alert("주민번호 : " + SSN1.value + "-" + SSN2.value);
+            if (count == 0){
+                alert(`${password.value}` + "에는 특수문자(?, !, @, _)가 포함되어야 합니다.");
+                return false;
             }else {
-                alert("회원가입 실패");
-                alert("다시시도해 주세요");
+                alert("비밀번호 설정 완료");
             }
+
+            if(isNaN(Number(SSN1.value)) && isNaN(Number(SSN2.value))){
+                alert(`${SSN1.value}-${SSN2.value}` + "에는 숫자만 써야합니다.");
+                return false;
+            }else {
+                alert("주민번호 설정 완료");
+            }
+
+            alert("회원가입 완료!");
+            alert("이름 : " + Name.value);
+            alert("아이디 : " + ID.value);
+            alert("비밀번호 : " + password.value);
+            alert("주민번호 : " + SSN1.value + "-" + SSN2.value);
         }
 
         function resetSignUp(){
