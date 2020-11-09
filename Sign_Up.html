@@ -17,46 +17,46 @@
     </div>
     <script>
         function checkSignUp(){
-            let password = document.getElementById("password");
-            let SSN1 = document.getElementById("SocialSecurityNumber1");
-            let SSN2 = document.getElementById("SocialSecurityNumber2");
-            let Name = document.getElementById("name");
-            let ID = document.getElementById("ID");
+            let password = document.getElementById("password").value;
+            let SSN1 = document.getElementById("SocialSecurityNumber1").value;
+            let SSN2 = document.getElementById("SocialSecurityNumber2").value;
+            let Name = document.getElementById("name").value;
+            let ID = document.getElementById("ID").value;
             let word1 = Array('?', '!', '@', '_');
             let word2 = Array(1, 2, 3, 4, 5, 6, 7, 8, 9);
             let count = 0;
 
             for(let i=0;i<word1.length;i++){
-                if(password.value.includes(word1[i])){ 
+                if(password.includes(word1[i])){ 
                     count += 1;
                 }
             }
 
             if (count == 0){
-                alert(`${password.value}` + "에는 특수문자(?, !, @, _)가 포함되어야 합니다.");
+                alert(`${password}` + "에는 특수문자(?, !, @, _)가 포함되어야 합니다.");
                 return false;
             }else {
                 alert("비밀번호 설정 완료");
             }
 
-            if(isNaN(Number(SSN1.value)) && isNaN(Number(SSN2.value))){
-                alert(`${SSN1.value}-${SSN2.value}` + "에는 숫자만 써야합니다.");
+            if(!isNaN(Number(SSN1)) && isNaN(Number(SSN2))){
+                alert(`${SSN1}-${SSN2}` + "에는 숫자만 써야합니다.");
                 return false;
             }else {
                 alert("주민번호 설정 완료");
             }
 
             alert("회원가입 완료!");
-            alert("이름 : " + Name.value);
-            alert("아이디 : " + ID.value);
-            alert("비밀번호 : " + password.value);
-            alert("주민번호 : " + SSN1.value + "-" + SSN2.value);
+            alert("이름 : " + Name);
+            alert("아이디 : " + ID);
+            alert("비밀번호 : " + password);
+            alert("주민번호 : " + SSN1 + "-" + SSN2);
         }
 
         function resetSignUp(){
             const text = document.querySelectorAll("input[type=text]");
             for(elem of text){
-                elem.value = "";
+                elem = "";
             }
         }
         
