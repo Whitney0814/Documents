@@ -39,7 +39,7 @@
                 alert("비밀번호 설정 완료");
             }
 
-            if(!isNaN(Number(SSN1)) && isNaN(Number(SSN2))){
+            if(isNaN(SSN1) || isNaN(SSN2)){
                 alert(`${SSN1}-${SSN2}` + "에는 숫자만 써야합니다.");
                 return false;
             }else {
