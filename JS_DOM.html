@@ -1,0 +1,44 @@
+<!DOCTYPE HEML>
+<html>
+<head>
+    <title>사슴에 관하여</title>
+</head>
+<body>
+    <input type="button" onclick="showMessage()" value="Message">
+    <input type="button" onclick="redBackground()" value="red">
+    <input type="button" onclick="blueBackground()" value="blue">
+    <input type="button" onclick="greenBackground()" value="green">
+    <input type="button" onclick="purpleBackground()" value="purlpe">
+    <input type="button" onclick="pinkBackground()" value="pink">
+    <input type="button" onclick="whiteBackground()" value="reset">
+<script>
+    function showMessage(){
+        alert("Message");
+    }
+    function redBackground(){
+        document.body.style.background = "red";
+    }
+    function blueBackground(){
+        document.body.style.background = "blue";
+    }
+    function greenBackground(){
+        document.body.style.background = "green";
+    }
+    function purpleBackground(){
+        document.body.style.background = "purple";
+    }
+    function pinkBackground(){
+        document.body.style.background = "pink";
+    }
+    function whiteBackground(){
+        document.body.style.background = "white";
+    }
+    for(const elem of document.body.children){
+        alert(elem.text);
+    }
+</script>
+    <a>
+        사슴은 아름다운 동물입니다.
+    </a>  
+</body>  
+</html>

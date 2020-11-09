@@ -1,0 +1,49 @@
+﻿@charset "EUC-KR";
+
+.head{
+	margin: 0 auto;
+	width: 500px;
+	border: 1px solid;
+}
+.logo{
+	border: 1px solid;
+}
+.logo > img{
+	height: 80px;
+	width: 80px;
+}
+.logo > pre{
+	font-size: 30px;
+	display: inline-block;
+	vertical-align: top;
+}
+.number{
+	border-right: 1px solid;
+}
+.number > div{
+	display: inline-block;
+	padding: 10px 64px 10px 20px;
+	border-left: 1px solid;
+}
+.main{
+	border: 1px solid;
+}
+.main > p:nth-child(2){
+	text-align: right;
+}
+.main > p:nth-child(4){
+	text-align: right;
+}
+.main > p:nth-child(5){
+	text-align: center;
+}
+.footer{
+	border-left: 1px solid;
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	
+}
+.footer > p{
+	margin: 0px;
+	padding: 1rem;
+}
