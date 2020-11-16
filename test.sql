@@ -53,6 +53,8 @@ HAVING
 -- 데이터는 PRODUCT 안의 데이터를 INSERT SELECT 문을 사용하여 데이터를 넣어 주세요
 -- ID, NAME, PRICE, ORIGIN 의 데이터 타입은 PRODUCT 테이블과 동일합니다
 
+DELETE TABLE CATALOGUE;
+
 INSERT INTO 
     CATALOGUE
 SELECT
@@ -95,10 +97,10 @@ ALTER TABLE
 ADD CATEGORY_ID NUMBER;
 
 INSERT INTO 
-    CATALOGUE (CATEGORY_ID)
+    CATALOGUE(CATEGORY_ID)
 SELECT
     CATEGORY_ID
-FROM
+FROM 
     PRODUCT;
 
 -- 문제 7.
@@ -139,12 +141,43 @@ GROUP BY
 -- 10글자 미만인 경우 모두 출력되게끔 합니다 (... 이 붙어서는 안됩니다)
 -- oracle IF(https://coding-factory.tistory.com/451), SUBSTR(https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions162.htm), ||(https://dpdpwl.tistory.com/80) 연산자 사용 필요
 
+SELECT
+    NAME AS 상품명,
+    CASE WHEN(LENGTH(DESCRIPTION) >= 10) THEN
+    SUBSTR(DESCRIPTION, 0, 10) || '...'
+    ELSE
+    DESCRIPTION
+    END AS 설명
+FROM
+    PRODUCT
 
 -- 문제 9.
 -- PAYMENT_HISTORY 에서 1월중 가장 단일 판매 액수가 높은 주문 건수를 찾아서
--- 상품명, 구매한 유저명, 구매 금액, 구매 개수를 출력해주세요
+-- 상품명, 구매한 유저명, 구매 금액, 구매 개수를 출력해주세요 (ROWNUM 구문을 사용해주세요, https://gent.tistory.com/254)
 
+SELECT 
+    PRODUCT.NAME,
+    MEMBER.NAME,
+    PAYMENT_HISTORY.ORDER_PRICE,
+    PAYMENT_HISTORY.ORDER_COUNT
+FROM
+    PAYMENT_HISTORY, PRODUCT, MEMBER
+WHERE
+    PAYMENT_HISTORY.PRODUCT_ID = PRODUCT.ID AND
+    PAYMENT_HISTORY.MEMBER_ID = MEMBER.ID AND
+    ORDER_DATE >= '20200101' AND
+    ORDER_DATE < '20200201' AND
+    ROWNUM < 2;
 
 -- 문제 10.
 -- PAYMENT_HISTORY 에서 모든 기간의 일별 매출액을 출력해주세요
 
+SELECT 
+    TO_CHAR(ORDER_DATE, 'YYYYMMDD') AS DAY,
+    SUM(ORDER_PRICE) AS 일별매출액
+FROM
+    PAYMENT_HISTORY
+GROUP BY
+    TO_CHAR(ORDER_DATE, 'YYYYMMDD')
+ORDER BY
+    DAY;
