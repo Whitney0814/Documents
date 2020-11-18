@@ -149,7 +149,7 @@ SELECT
     DESCRIPTION
     END AS 설명
 FROM
-    PRODUCT
+    PRODUCT;
 
 -- 문제 9.
 -- PAYMENT_HISTORY 에서 1월중 가장 단일 판매 액수가 높은 주문 건수를 찾아서
